@@ -141,3 +141,85 @@ Entre os principais impactos esperados estão:
 * maior eficiência na priorização operacional;
 * identificação de gargalos logísticos recorrentes;
 * apoio à tomada de decisão baseada em dados.
+
+## Possíveis ações após a previsão
+
+Após a geração da previsão de risco de atraso, a NexaMarket poderá utilizar o resultado do modelo para apoiar decisões operacionais e estratégicas.
+
+A previsão deverá classificar cada pedido em níveis de risco, por exemplo:
+
+* baixo risco de atraso;
+* médio risco de atraso;
+* alto risco de atraso.
+
+Para pedidos classificados como **baixo risco**, o fluxo logístico poderá seguir normalmente, sem necessidade de intervenção adicional. Esses pedidos seriam apenas monitorados pelos processos padrões da empresa.
+
+Para pedidos classificados como **médio risco**, a equipe de operações poderá realizar um acompanhamento preventivo, verificando se existem sinais de lentidão na separação, expedição ou transporte. Esses pedidos podem entrar em uma fila de observação intermediária.
+
+Para pedidos classificados como **alto risco**, a empresa poderá adotar ações prioritárias, como:
+
+* monitorar o pedido com maior frequência;
+* acionar o vendedor ou centro de distribuição responsável;
+* verificar possíveis restrições logísticas na região de destino;
+* priorizar a separação e expedição do pedido;
+* consultar a transportadora sobre riscos no trajeto;
+* comunicar preventivamente o cliente em caso de risco elevado;
+* oferecer alternativas de atendimento, quando aplicável;
+* revisar a promessa de prazo para casos semelhantes no futuro.
+
+Além da atuação individual sobre pedidos, a previsão também poderá gerar análises agregadas para apoiar decisões gerenciais. A empresa poderá acompanhar, por exemplo, quais estados, cidades, categorias, vendedores ou faixas de frete apresentam maior concentração de pedidos com alto risco de atraso.
+
+Essas informações podem ser utilizadas para melhorar contratos com transportadoras, revisar políticas de frete, ajustar prazos estimados de entrega, identificar vendedores com baixo desempenho logístico e reduzir gargalos operacionais.
+
+## Principais riscos do projeto
+
+Embora o projeto tenha grande potencial de gerar valor para a NexaMarket, existem alguns riscos que precisam ser considerados durante seu desenvolvimento.
+
+O primeiro risco é o **vazamento de dados**. Como o objetivo é prever o atraso no momento da confirmação do pedido, o modelo não poderá utilizar informações que só ficam disponíveis depois da entrega. Variáveis como data real de entrega, avaliação do cliente, status final do pedido ou reclamações posteriores não devem ser usadas como atributos de entrada.
+
+Outro risco importante é a **qualidade dos dados**. Bases históricas de pedidos podem conter valores ausentes, inconsistências em datas, registros duplicados, categorias pouco padronizadas e informações incompletas sobre clientes, vendedores ou fretes. Esses problemas podem afetar diretamente o desempenho e a confiabilidade do modelo.
+
+Também existe o risco de **desbalanceamento da variável-alvo**. Caso a quantidade de pedidos atrasados seja muito menor do que a quantidade de pedidos entregues no prazo, o modelo poderá aprender a favorecer a classe majoritária, apresentando boa acurácia geral, mas baixa capacidade de identificar atrasos reais.
+
+Outro ponto relevante é a **mudança de comportamento ao longo do tempo**. Atrasos logísticos podem variar conforme sazonalidade, campanhas promocionais, períodos como Black Friday, mudanças em transportadoras, aumento de demanda, alterações operacionais ou eventos externos. Isso pode fazer com que o desempenho do modelo diminua com o passar do tempo.
+
+Há também o risco de **interpretação incorreta da previsão**. O modelo não deve ser tratado como uma verdade absoluta, mas como uma ferramenta de apoio à decisão. Um pedido classificado como alto risco não necessariamente irá atrasar, e um pedido de baixo risco ainda poderá apresentar problema.
+
+Por fim, existe o risco de **baixa adoção pela área de negócio**. Caso a solução não seja simples, interpretável e conectada a ações práticas, as equipes de logística e atendimento podem não incorporar o modelo em sua rotina.
+
+## Restrições do projeto
+
+Este projeto utilizará dados históricos disponíveis em bases públicas de e-commerce. Por esse motivo, algumas informações que poderiam existir em uma empresa real talvez não estejam disponíveis, como nome da transportadora, modalidade detalhada de frete, status intermediários do transporte ou informações em tempo real sobre rastreamento.
+
+A previsão será construída com base nas informações disponíveis até o momento da confirmação do pedido. Portanto, qualquer variável registrada após esse momento será descartada da etapa de modelagem, mesmo que apresente forte relação com o atraso.
+
+O projeto também deverá respeitar boas práticas de Ciência de Dados, como separação adequada entre treino e teste, prevenção de vazamento de dados, avaliação por métricas compatíveis com o problema e documentação clara das decisões tomadas.
+
+Como se trata de um projeto de portfólio, a implantação será demonstrada por meio de uma aplicação simples, possivelmente em Streamlit, sem integração real com sistemas corporativos de pedidos, transportadoras ou atendimento ao cliente.
+
+## Critérios de sucesso
+
+O sucesso do projeto será avaliado tanto por critérios técnicos quanto por critérios de negócio.
+
+Do ponto de vista técnico, espera-se que o modelo consiga identificar pedidos com maior risco de atraso com desempenho superior a uma abordagem aleatória ou baseada apenas em regras simples. Métricas como recall, precision, F1-score, ROC-AUC e matriz de confusão serão utilizadas para avaliar os resultados.
+
+Como o objetivo principal é antecipar atrasos, o recall da classe de atraso será uma métrica especialmente importante. Isso porque a empresa deseja identificar a maior quantidade possível de pedidos que realmente poderão atrasar.
+
+No entanto, a precision também deverá ser observada, pois um número muito alto de falsos positivos pode gerar esforço operacional desnecessário. O modelo ideal deverá equilibrar a capacidade de identificar atrasos com a geração de alertas úteis para o negócio.
+
+Do ponto de vista de negócio, o projeto será considerado bem-sucedido se permitir:
+
+* identificar pedidos com maior probabilidade de atraso;
+* apoiar priorização operacional;
+* gerar insights sobre fatores associados a atrasos;
+* melhorar a tomada de decisão da área logística;
+* demonstrar potencial de redução de reclamações e custos de atendimento;
+* apresentar uma solução compreensível para públicos técnicos e não técnicos.
+
+Do ponto de vista de portfólio, o projeto será considerado bem-sucedido se apresentar uma narrativa clara, código organizado, análise exploratória bem documentada, modelo comparado com alternativas, explicabilidade dos resultados e uma demonstração simples da solução em funcionamento.
+
+## Considerações finais da Fase 1
+
+A Fase 1 definiu o problema de negócio da NexaMarket, o objetivo da solução, os usuários envolvidos, a variável-alvo, o momento correto da previsão, os impactos esperados, as possíveis ações operacionais, os riscos, as restrições e os critérios de sucesso do projeto.
+
+Com essa etapa concluída, o projeto passa a ter uma base de negócio clara para orientar as próximas fases. A partir daqui, as decisões técnicas de coleta, preparação, análise, modelagem e implantação deverão estar sempre conectadas ao problema central: antecipar pedidos com maior risco de atraso e apoiar uma atuação mais proativa da empresa.
